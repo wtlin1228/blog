@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Wei Tang Lin Blog`,
+    title: `LeoNerd`,
     author: {
-      name: `Wei Tang Lin`,
+      name: `Leo Lin`,
       summary: `who lives and works in Taiwan being a frontend engineer.`,
     },
     description: `This is my developing logbook. Welcome, I'm delighted to see you! :)`,
