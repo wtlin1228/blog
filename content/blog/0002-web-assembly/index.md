@@ -337,7 +337,7 @@ memoryArray[2] = 42
 document.write(readMemory(2))
 ```
 
-### JS vs Web Assembly vs Web Worker
+## JS vs Web Assembly vs Web Worker
 
 Use **JavaScript** when you need to deal with strings, objects, giant arrays or complicated data structures. The abstractions, garbage collection and not having to allocate memory makes working in JavaScript much simpler.
 
