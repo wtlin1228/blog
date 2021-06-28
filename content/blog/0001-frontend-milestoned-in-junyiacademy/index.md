@@ -1,5 +1,5 @@
 ---
-title: Frontend milestones in JunyiAcademy
+title: Frontend Milestones in JunyiAcademy
 excerpt: Make the codebase more better and more maintainable is one of the most important tasks for a senior frontend engineers in JunyiAcademy.
 date: 2021-04-20
 tags: [junyiacademy]
