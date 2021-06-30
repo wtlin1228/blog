@@ -1,7 +1,7 @@
 ---
 title: Observer Pattern
 excerpt: The Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
-date: 2021-05-15
+date: 2021-06-30
 tags: [design-pattern, head-first-design-patterns, observer-pattern]
 slug: design-pattern-observer
 cover: cover.jpg
