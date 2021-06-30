@@ -13,7 +13,7 @@ Codebase of JunyiAcademy was forked from KhanAcademy in 2013. It is harder and h
 
 There had been 15% React code before I joined JunyiAcademy. So I doesn't spend time convincing the team to adapt it. What I need to do is provide a good frontend architecture and write the documents for everyone to follow.
 
-The new tech stack is `React`, `React Query`, `Redux`, `Redux Toolkit`, `Testing Library` and `TypeScript`, `Next.js` and `Material UI`.
+The new tech stack is `React`, `React Query`, `Redux`, `Redux Toolkit`, `Testing Library`, `TypeScript`, `Next.js` and `Material UI`.
 
 ### Separate Server Side and Client Side State
 
