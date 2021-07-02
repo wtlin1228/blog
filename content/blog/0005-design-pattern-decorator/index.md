@@ -1,7 +1,7 @@
 ---
 title: Decorator Pattern
 excerpt: Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.
-date: 2021-06-30
+date: 2021-07-02
 tags: [design-pattern, head-first-design-patterns, decorator-pattern]
 slug: design-pattern-decorator
 cover: cover.jpg
