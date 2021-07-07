@@ -21,15 +21,15 @@ The book's example is written in Java. So I rewrite it in [TypeScript](https://g
 
 ## A Real Case in my Daily Work
 
-`Redux` is the first thought that came to me when I was reading the Command Pattern. The actions dispatched to store is actually the commands. So dispatch is the invoker and store is the receiver.
+`Redux` is the first thought that came to me when I was reading the Command Pattern. The actions dispatched to store are actually the commands. So dispatch is the invoker and store is the receiver.
 
 ### Queue
 
-Client can pop actions from a queue or queues, then dispatch the actions on by one. For example, client can get one action stored in database through API then execute it.
+Clients can pop actions from queues, then dispatch the actions on by one. For example, a client can get one action stored in the database through API then execute it.
 
 ### Log
 
-The current state and actions that causes this error can be log to the logging system like Sentry. Redux middleware is a good place to handle the error logging.
+The current state and the action that causes this error can be logged to the logging system like Sentry. Redux middleware is a good place to handle the error logging.
 
 ### Undoable
 
