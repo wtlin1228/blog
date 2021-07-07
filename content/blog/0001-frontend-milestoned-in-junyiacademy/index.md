@@ -15,6 +15,10 @@ There had been 15% React code before I joined JunyiAcademy. So I doesn't spend t
 
 The new tech stack is `React`, `React Query`, `Redux`, `Redux Toolkit`, `Testing Library`, `TypeScript`, `Next.js` and `Material UI`.
 
+### SSR and Preview Mode
+
+`Next.js` is chosen to be the new frontend server side rendering framework for the new architecture (previous one is `Flask` + `Jinja2` 🥸). It provides a lot of basic features such as SSR, SSG, image optimization, etc. And preview mode which is one of the advanced features can benefits our CMS a lot.
+
 ### Separate Server Side and Client Side State
 
 `React Query` is a server-state library, responsible for managing asynchronous operations between your server and client. So we create our own custom hooks deal with server data with `useQuery` and `useMutation`.
