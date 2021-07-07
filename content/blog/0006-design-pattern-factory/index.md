@@ -1,6 +1,6 @@
 ---
 title: Factory Pattern
-excerpt: Factory Method create one object and Abstract Factory create a family of objects for client.
+excerpt: Factory Method creates one object and Abstract Factory creates a family of objects for client.
 date: 2021-07-04
 tags: [design-pattern, head-first-design-patterns, factory-pattern]
 slug: design-pattern-factory
@@ -9,9 +9,9 @@ cover: cover.jpg
 
 This is my notes for Chapter 4 of [Head First Design Pattern, 2nd Edition](https://learning.oreilly.com/library/view/head-first-design/9781492077992/).
 
-And where can this pattern be applied in my daily work.
+And where can this pattern be applied in my daily work?
 
-## What is Factory Pattern?
+## What is the Factory Pattern?
 
 There are two patterns in this chapter.
 
@@ -19,11 +19,11 @@ There are two patterns in this chapter.
 
 2. Abstract Factory: Provide an interface for creating families of related or dependent objects without specifying their concrete classes.
 
-The main difference between them is that Factory Method only create one object but Abstract Factory create serval objects.
+The main difference between them is that Factory Method only creates one object but Abstract Factory creates several objects.
 
 ### Diagrams
 
-Thanks for the diagrams. We can see clearly that the factory method is actually a subset of abstract factory when the factory only produce one product.
+Thanks for the diagrams. We can see clearly that the Factory Method is actually a subset of the Abstract Factory when the factory only produces one product.
 
 1. Factory Method
 
@@ -39,7 +39,7 @@ The book's example is written in Java. So I rewrite it in [TypeScript](https://g
 
 ## A Real Case in my Daily Work
 
-I want to design an alert component. This component contain two parts. One is alert bar. The other one is confirm button. And this alert component should be different in different OS (macOS, Windows, Linux).
+I want to design an alert component. This component contains two parts. One is the alert bar. The other one is the confirm button. And this alert component should be different in different OS (macOS, Windows, Linux).
 
 ![UML-alert-factory](./alert-factory.png)
 

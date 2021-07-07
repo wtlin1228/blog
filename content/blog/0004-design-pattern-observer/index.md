@@ -9,9 +9,9 @@ cover: cover.jpg
 
 This is my notes for Chapter 2 of [Head First Design Pattern, 2nd Edition](https://learning.oreilly.com/library/view/head-first-design/9781492077992/).
 
-And where can this pattern be applied in my daily work.
+And where can this pattern be applied in my daily work?
 
-## What is Observer Pattern?
+## What is the Observer Pattern?
 
 The Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
 
@@ -25,7 +25,7 @@ I have used `Redux` to handle global state for a long time. And `Redux` implemen
 
 ### Store
 
-A store has `dispatch`, `subscribe` and `getState` methods. Store itself is actually implementing the subject interface. The notification is triggered by the subject instead of client. And it's **pull model** because subject doesn't send state to the observers.
+A store has `dispatch`, `subscribe` and `getState` methods. Store itself is actually implementing the subject interface. The notification is triggered by the subject instead of the client. And it's **pull model** because the subject doesn't send state to the observers.
 
 - subject.attach(Observer) -> store.subscribe(listener)
 - subject.detach(Observer) -> store.subscribe(listener) will return an unsubscribe function
@@ -113,3 +113,7 @@ A store has `dispatch`, `subscribe` and `getState` methods. Store itself is actu
    // observer1 says: { count: 6 }
    // observer2 says: I just want to know the state has changed
    ```
+
+### What's More
+
+Two clients can share one Redux Store by lifting the Store to a backend service. Use Socket.IO to handle the communication between these two clients. This special implementation is extremely useful when we want to build a live customer service system. The customer service staff can use this service to show the customer how to do it. Or watch the customer's operating procedures then give feedback immediately.

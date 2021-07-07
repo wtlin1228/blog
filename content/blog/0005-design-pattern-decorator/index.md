@@ -9,9 +9,9 @@ cover: cover.jpg
 
 This is my notes for Chapter 3 of [Head First Design Pattern, 2nd Edition](https://learning.oreilly.com/library/view/head-first-design/9781492077992/).
 
-And where can this pattern be applied in my daily work.
+And where can this pattern be applied in my daily work?
 
-## What is Decorator Pattern?
+## What is the Decorator Pattern?
 
 Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.
 

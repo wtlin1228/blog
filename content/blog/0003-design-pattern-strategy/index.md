@@ -9,9 +9,9 @@ cover: cover.jpg
 
 This is my notes for Chapter 1 of [Head First Design Pattern, 2nd Edition](https://learning.oreilly.com/library/view/head-first-design/9781492077992/).
 
-And where can this pattern be applied in my daily work.
+And where can this pattern be applied in my daily work?
 
-## What is Strategy Pattern?
+## What is the Strategy Pattern?
 
 The Strategy Pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. Strategy lets the algorithm vary independently from clients that use it.
 
@@ -52,7 +52,7 @@ class LoadDataFromCloudEdu implements ILoadDataBehavior {
 
 ### Integrate the Uploader Behavior
 
-Key: A `Uploader` will delegate it's loading data behavior instead of using loading data method defined in the `Uploader` class (or subclass).
+Key: A `Uploader` will delegate it's loading data behavior instead of using the loading data method defined in the `Uploader` class (or subclass).
 
 First I add the instance variable of type `ILoadDataBehavior`. Each concrete uploader object will assign to this variable a specific loading data behavior at runtime.
 
@@ -84,7 +84,7 @@ class SchoolBehaviorUploader extends Uploader {
 
 ### Setting behavior dynamically
 
-This pattern give me the ability to change the load data behavior at runtime. I can load school behavior data from excel file first. Then Switch to load data from Cloud Edu.
+This pattern give me the ability to change the load data behavior at runtime. I can load school behavior data from an excel file first. Then Switch to load data from Cloud Edu.
 
 ```ts
 const schoolBehaviorUploader = new SchoolBehaviorUploader()
@@ -103,6 +103,6 @@ schoolBehaviorUploader.performLoadData()
 
 ![UML-big-picture](./big-picture.png)
 
-Think of the each set of behaviors as a family of algorithms. And they are interchangeable.
+Think of each set of behaviors as a family of algorithms. And they are interchangeable.
 
-In my case, load data behaviors is a set of algorithm. And client can change the algorithm during the runtime.
+In my case, load data behaviors is a set of algorithms. And clients can change the algorithm during the runtime.

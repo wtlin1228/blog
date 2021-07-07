@@ -9,9 +9,9 @@ cover: cover.jpg
 
 This is my notes for Chapter 5 of [Head First Design Pattern, 2nd Edition](https://learning.oreilly.com/library/view/head-first-design/9781492077992/).
 
-And where can this pattern be applied in my daily work.
+And where can this pattern be applied in my daily work?
 
-## What is Singleton Pattern?
+## What is the Singleton Pattern?
 
 Ensure a class only has one instance, and provide a global point of access to it.
 
@@ -21,7 +21,7 @@ The book's example is written in Java. So I rewrite it in [TypeScript](https://g
 
 ## A Real Case in my Daily Work
 
-I use Singleton Pattern to create a unique redux store which will be pass into different react-redux providers. The primary reason for having serval react-redux provider is that I'm migrating an non-react frontend codebase to react. Therefore, I need to render the react components into different containers during my migrating journey.
+I use Singleton Pattern to create a unique redux store which will be passed into different react-redux providers. The primary reason for having several react-redux provider is that I'm migrating a non-react frontend codebase to react. Therefore, I need to render the react components into different containers during my migrating journey.
 
 By the way, this pattern can also be used when the react-query client needs to be passed into many react-query providers.
 
@@ -40,14 +40,14 @@ Similarly, while you can reference your store instance by importing it directly,
 
 ### Example
 
-Here is a simple bookstore app that users can read the books and recommend new books.
+Here is a simple bookstore app that users can read and recommend new books.
 
 User stories:
 
 1. When a user recommends a new book from `UserProfile`, this user will see the book appears in the `Bookstore`.
 1. When a user chooses a new book from `Bookstore`, this user will see the current reading book is updated in the `UserProfile`.
 
-First, define the Store class with Singleton Pattern.
+First, define the Store class with the Singleton Pattern.
 
 ```js
 // src/store.js
@@ -76,7 +76,7 @@ class Store {
 export default Store
 ```
 
-After defining the Store class with Singleton Pattern, use `Store.getStore()` to get the unique store instance. And this unique store can be pass to as many as provider as you want without sacrificing the benefits described above.
+After defining the Store class with Singleton Pattern, use `Store.getStore()` to get the unique store instance. And this unique store can be passed to as many providers as you want without sacrificing the benefits described above.
 
 ```js
 // src/index.js
