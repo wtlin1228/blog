@@ -1,13 +1,13 @@
 ---
 title: DevOps in JunyiAcademy
-excerpt: DevOps in JunyiAcademy contains version control, CI/CD and release management.
+excerpt: DevOps in JunyiAcademy contains version control, CI/CD and release management.
 date: 2021-07-12
 tags: [junyiacademy, devops]
 slug: devops-in-junyiacademy
 cover: cover.jpg
 ---
 
-DevOps in JunyiAcademy contains version control, CI/CD and release management.
+DevOps in JunyiAcademy contains version control, CI/CD and release management.
 
 ## Version Control
 
