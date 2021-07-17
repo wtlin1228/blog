@@ -7,7 +7,7 @@ slug: web-assembly
 cover: cover.jpg
 ---
 
-This is my notes for [Web Assembly Course](https://frontendmasters.com/courses/web-assembly/) taught by [Jem Young](https://twitter.com/JemYoung) at FrontendMaster.
+This is my note for [Web Assembly Course](https://frontendmasters.com/courses/web-assembly/) taught by [Jem Young](https://twitter.com/JemYoung) at FrontendMaster.
 
 And here is the [Course Notes](https://young.github.io/intro-to-web-assembly/).
 
