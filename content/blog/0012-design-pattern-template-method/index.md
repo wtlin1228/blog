@@ -3,7 +3,7 @@ title: Template Method Pattern
 excerpt: Define a skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.
 date: 2021-07-17
 tags: [design-pattern, head-first-design-patterns, template-method-pattern]
-slug: design-pattern-template
+slug: design-pattern-template-method
 cover: cover.jpg
 ---
 
