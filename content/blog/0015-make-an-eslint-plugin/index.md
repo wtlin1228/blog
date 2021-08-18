@@ -51,13 +51,13 @@ module.exports = {
 }
 ```
 
-Besides, providing a meta object containing `type`, `docs`, `fixable`, `schema`... can make the rule more complete.
+Besides, make the rule more complete by providing a meta object containing `type`, `docs`, `fixable`, `schema`, ...etc.
 
 Note: `Program:exit` is helpful when the rule needs to wait until the whole file is parsed.
 
 ### Rule - Test File
 
-Remember to configure the correct parser for your `ruleTester`. For example, set the parser to `@babel/eslint-parser` if you want to use ES6 features.
+Remember to configure the correct parser for your `ruleTester`. For example, set the parser to `@babel/eslint-parser` if you want to use ES6+ features.
 
 ```js
 import { RuleTester } from "eslint"
@@ -125,7 +125,7 @@ module.exports = {
 }
 ```
 
-Or if your plugin provides some configs like `recommended`. Then you can use the plugin like this:
+Or if the plugin provides some configs like `recommended`. Then the plugin can be used like this:
 
 ```js
 module.exports = {
