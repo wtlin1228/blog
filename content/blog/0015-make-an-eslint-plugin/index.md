@@ -24,7 +24,9 @@ Take the `limit-continuous-import-declarations` rule as example:
 ```js
 module.exports = {
   create(context) {
-    // use context to share these variables between callbacks of each selectors while traversing the abstract syntax tree.
+    // use context to share these variables between callbacks
+    // of each selectors while traversing the abstract syntax
+    // tree.
     const limit = 10
     let continuousImportDeclarations = 0
     let lastEnd = 0
@@ -33,7 +35,8 @@ module.exports = {
       ImportDeclaration(node) {
         const [start, end] = node.range
         if (start !== lastEnd + 1) {
-          // reset counter if there is an empty line between import declarations
+          // reset counter if there is an empty line between
+          // import declarations
           continuousImportDeclarations = 0
         }
         continuousImportDeclarations += 1
