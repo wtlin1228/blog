@@ -113,7 +113,7 @@ import { withDefaultOptions } from "./withDefaultOptions"
 import type { IOptions } from "./withDefaultOptions"
 
 export const scrollWindowVerticallyTo = (scrollToElement, options) => {
-  // calculate how many pixels need to be scroll
+  // calculate how many pixels need to scroll
   const initialVerticalScroll = window.scrollY
   const targetVerticalScroll =
     window.scrollY +
@@ -121,7 +121,7 @@ export const scrollWindowVerticallyTo = (scrollToElement, options) => {
     options.verticalOffset
   const verticalDistanceToScroll = targetVerticalScroll - initialVerticalScroll
 
-  // calculate how much time this scroll animation will take
+  // calculate how much time this scroll animation needs
   let duration = Math.abs(
     Math.round((verticalDistanceToScroll / 1000) * options.speed)
   )
