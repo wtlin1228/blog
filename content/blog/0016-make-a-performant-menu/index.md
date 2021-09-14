@@ -69,26 +69,23 @@ For example, create a `CategoryInViewManagerProvider` manager to manage a RxJS s
 ```js
 export const CategoryInViewManagerProvider = ({ children }) => {
   const forceRerenderFnRef = useRef<>(() => {})
-
-  const subject = useMemo(() => {
-    return new Subject()
-  }, [])
+  const subjectRef = useRef(new Subject<string>())
 
   const handleCategoryInView = useCallback(
     (categoryId) => {
-      subject.next(categoryId)
+      subjectRef.current.next(categoryId)
     },
-    [subject]
+    [subjectRef]
   )
 
   const manager = useMemo(
     () => ({
       handleCategoryInView,
-      topCategory$: subject,
+      topCategory$: subjectRef.current,
     }),
     [
       handleCategoryInView,
-      subject,
+      subjectRef,
     ]
   )
 
