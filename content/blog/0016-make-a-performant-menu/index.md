@@ -1,105 +1,143 @@
 ---
 title: Make a Performant Menu
-excerpt: Performance is User Experience. So this post will show how to create a performant menu without using existing libraries (except for RxJS).
+excerpt: Performance is User Experience. So this post will show how I create a performant menu.
 date: 2021-09-05
 tags: [performance, rxjs, scrolling, intersection-observer]
 slug: make-a-performant-menu
 cover: cover.jpg
 ---
 
-Performance is User Experience. So this post will show how to create a performant menu without using existing libraries (except for RxJS).
+Performance is User Experience. So this post will show how I create a performant menu.
 
-Below is the performance recording under 6x slowdown CPU (with 8 categories and each category has 10 items).
+<iframe src="https://giphy.com/embed/TCyuKR0vRwnnM2DjpX" width="278" height="480" frameBorder="0"></iframe>
 
-<img src="./demo-performance-record.png" style="height: 400px">
+Below is the performance recording for my menu under 6x slowdown CPU (with 8 categories and each category has 10 items). You can see there are no dropping frames when I scroll through all the 80-items long menu.
 
-## Specifications
+<img src="./performance-6x-slowdown.png" style="height: 400px">
 
-1. Activate the corresponding chip user is browsing.
-1. Scroll the activated chip to the first place.
-1. Scroll to the corresponding book category when clicking it's chip.
-1. Activate the last chip when scrolling down to the bottom not by clicking a chip.
-1. Activate the clicked chip when scrolling down to the bottom by clicking a chip.
+## Context
 
-<img src="./first-look.png" style="height: 450px">
+I want to build a menu with some anchors attached to it. Those anchors help users scroll to exact category they are looking for. And I want to give users an overview of where they are, what is the current category they are watching.
 
-## Intersection Observer
+In order to accomplish my goal. I know that need to make something that can listen to the scroll event. Find a way to share the current category information through the app. And build a mechanism to prevent unnecessary renders.
 
-Use intersection observer instead of using scroll event listener to avoid too many works being done in the main thread.
+Oh, one last thing to say. I also want to activate the last anchor chip when user scroll to the bottom.
 
-For example, create a custom `useMenuCategoryInView` hook to observe whether a category is in viewport or not:
+## Technology Overview
+
+Here are the primary technologies used in this project:
+
+- [React](https://reactjs.org/): For the UI
+- [Create React App](https://create-react-app.dev/): Set up a modern web app by running one command
+- [TypeScript](https://www.typescriptlang.org/): Typed JavaScript (necessary for any project you plan to maintain)
+- [RxJS](https://rxjs.dev/): For composing asynchronous events
+- [Tailwind CSS](https://tailwindcss.com/): Utility classes for consistent/maintainable styling
+- [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API): For observing whether categories and footer are in view or not
+- [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame): For smoothly scrolling vertically and horizontally
+
+## Design Overview
+
+![Design overview](./design-overview.png)
+
+### Combine complex events into one data stream
+
+I expect the final data stream looks like the following. Please allow me using [marble diagram](https://rxmarbles.com/) here.
+
+Imagine there are four categories. And user scrolls the viewport top to bottom then goes back to top.
+
+```bash
+# 1 = 1st category element
+# 2 = 2nd category element
+# 3 = 3rd category element
+# 4 = 4rd category element
+# F = not touch bottom
+# T = touch bottom
+target$:  --1---2---3----4---3-2---1---
+footer$:  F--------T----------F--------
+combine$: --1---2--4-----------2---1--- # this is what I need
+```
 
 ```js
-export default function useMenuCategoryInView({ callback }) {
-  const ref = useRef(null)
+const emitFooterValueIfFooterIsInView = ({ topEntry, isFooterInView }) => {
+  if (topEntry && isFooterInView) {
+    return lastCategoryId // 4, in this case
+  }
+  return topEntry // 1 or 2, in this case
+}
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          callback()
-        }
-      },
-      { threshold: 0 }
-    )
+const combine$ = combineLatest({
+  topEntry: targets$,
+  isFooterInView: footer$,
+}).pipe(map(emitFooterValueIfFooterIsInView))
+```
 
-    const target = ref.current
-    if (target) {
-      observer.observe(target)
+Complete code for my `useSubscribeToScrollSpyGroup` is [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/hooks/useSubscribeToScrollSpyGroup.ts).
+
+### Detect what users are browsing
+
+I use `intersectionObserver` instead of scroll event listener. This way, sites no longer need to do anything on the main thread to watch for this kind of element intersection, and the browser is free to optimize the management of intersections as it sees fit.
+
+```js
+const spyTargetWithIntersectionObserver = useCallback(
+  ({
+    groupName, // the group this observer belongs to
+    target, // the target HTML element
+    options, // options to pass to IntersectionObserver
+    valueToBeEmitted, // emit this value if intersecting
+  }) => {
+    // Do not create a new IntersectionObserver if no target provided.
+    if (!target) {
+      return () => {}
     }
-    return () => {
-      if (target) {
-        observer.unobserve(target)
+
+    // Get Subject for observer to emit value to.
+    const { targets$ } = getScrollSpyGroupSubjects(groupName)
+
+    // Instantiated an IntersectionObserver.
+    const callback = ([entry]) => {
+      if (entry.isIntersecting) {
+        targets$.next(valueToBeEmitted)
       }
     }
-  }, [callback])
+    const observer = new IntersectionObserver(callback, options)
 
-  return { ref }
-}
+    // Observer the target HTML element and provide a way to unobserve.
+    observer.observe(target)
+    return () => {
+      observer.unobserve(target)
+    }
+  },
+  [getScrollSpyGroupSubjects]
+)
 ```
 
-You can find complete code for `useMenuCategoryInView` in [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/hooks/useMenuCategoryInView.ts).
+Complete code for my `spyTargetWithIntersectionObserver` is [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/managers/ScrollSpyGroupManager.tsx#L91-L117).
 
-## RxJS
+### Prevent unnecessary renders by observable
 
-It can cause unnecessary rerenders if using state to manage those **in view categories**. With observables, we can defer the computation and provide a way to subscribe to. Therefore, use RxJS to transform those **menu category is in view** notifications into an observable stream. In this way, components can easily subscribe and unsubscribe to this stream then do whatever they need by operators.
+It can cause unnecessary rerenders if using state to manage those **in view categories**. With `Subject`, we can defer the computation and provide a way to subscribe to. Therefore, use RxJS to transform those **menu category is in view** notifications into an observable stream. In this way, components can easily subscribe and unsubscribe to this stream then do whatever they need by operators.
 
-For example, create a `CategoryInViewManagerProvider` manager to manage a RxJS subject:
+Complete code for my `ScrollSpyGroupManagerProvider` is [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/managers/ScrollSpyGroupManager.tsx).
+
+### Remember last state when navigation back to Menu
+
+Cause I need to get the last emitted value from the `combine$`. I choose `BehaviorSubject` instead of `Subject`. It's a variant of `Subject` that requires an initial value and emits its current value whenever it is subscribed to.
+
+### Reusable
+
+The `ScrollSpyGroupManagerProvider` can spy not only one single list. If there are two list to spy, I can make them into two group by providing a group name when using it's API.
 
 ```js
-export const CategoryInViewManagerProvider = ({ children }) => {
-  const forceRerenderFnRef = useRef<>(() => {})
-  const subjectRef = useRef(new Subject<string>())
+const unSpyCategory = spyTargetWithIntersectionObserver({
+  groupName: "category",
+})
 
-  const handleCategoryInView = useCallback(
-    (categoryId) => {
-      subjectRef.current.next(categoryId)
-    },
-    [subjectRef]
-  )
-
-  const manager = useMemo(
-    () => ({
-      handleCategoryInView,
-      topCategory$: subjectRef.current,
-    }),
-    [
-      handleCategoryInView,
-      subjectRef,
-    ]
-  )
-
-  return (
-    <CategoryInViewManagerContext.Provider value={manager}>
-      {children}
-    </CategoryInViewManagerContext.Provider>
-  )
-}
+const unSpyAdvertise = spyTargetWithIntersectionObserver({
+  groupName: "advertise",
+})
 ```
 
-You can find complete code for `CategoryInViewManagerProvider` in [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/managers/CategoryInViewManager.tsx).
-
-## requestAnimationFrame
+### Smooth scroll animation
 
 Use `requestAnimationFrame` to implement the animation for scrolling. This method tells the browser that you wish to perform an animation and requests that the browser calls a specified function to update an animation before the next repaint. The method takes a callback as an argument to be invoked before the repaint.
 
@@ -159,15 +197,12 @@ export const scrollWindowVerticallyTo = (scrollToElement, options) => {
 }
 ```
 
-You can find complete code for `scrollWindowVerticallyTo` in [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/utils/scrollWindowVerticallyTo.ts).
+Complete code for my `scrollWindowVerticallyTo` is [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/utils/scrollWindowVerticallyTo.ts). And there is also a `scrollElementHorizontallyTo` [here](https://github.com/wtlin1228/menu-with-anchor/blob/main/src/utils/scrollElementHorizontallyTo.ts).
 
 ## The Complete Code
 
-The complete source code is in this github repository - https://github.com/wtlin1228/menu-with-anchor. Feel free to clone it then record the performance yourself.
+The complete source code is in this github repository - https://github.com/wtlin1228/menu-with-anchor. Feel free to clone it then measure the performance yourself.
 
 ## Reference
 
-- [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-- [RxJS - Subject](https://rxjs.dev/api/index/class/Subject)
-- [Window.requestAnimationFrame()](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 - [Stanko/animated-scroll-to](https://github.com/Stanko/animated-scroll-to)
