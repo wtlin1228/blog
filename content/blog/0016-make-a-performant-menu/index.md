@@ -19,9 +19,9 @@ Below is the performance recording for my menu under 6x slowdown CPU (with 8 cat
 
 I want to build a menu with some anchors attached to it. Those anchors help users scroll to exact category they are looking for. And I want to give users an overview of where they are, what is the current category they are watching.
 
-In order to accomplish my goal. I know that need to make something that can listen to the scroll event. Find a way to share the current category information through the app. And build a mechanism to prevent unnecessary renders.
+In order to accomplish my goal. I know that I need to make something that can listen to the scroll event. Find a way to share the current category information through the app. And build a mechanism to prevent unnecessary renders.
 
-Oh, one last thing to say. I also want to activate the last anchor chip when user scroll to the bottom.
+Oh, one last thing to say. I also want to activate the last anchor chip when users scroll to the bottom.
 
 ## Technology Overview
 
@@ -43,7 +43,7 @@ Here are the primary technologies used in this project:
 
 I expect the final data stream looks like the following. Please allow me using [marble diagram](https://rxmarbles.com/) here.
 
-Imagine there are four categories. And user scrolls the viewport top to bottom then goes back to top.
+Imagine there are four categories. And the user scrolls the viewport top to bottom then goes back to top.
 
 ```bash
 # 1 = 1st category element
@@ -75,7 +75,7 @@ Complete code for my `useSubscribeToScrollSpyGroup` is [here](https://github.com
 
 ### Detect what users are browsing
 
-I use `intersectionObserver` instead of scroll event listener. This way, sites no longer need to do anything on the main thread to watch for this kind of element intersection, and the browser is free to optimize the management of intersections as it sees fit.
+I use `intersectionObserver` instead of a scroll event listener. This way, sites no longer need to do anything on the main thread to watch for this kind of element intersection, and the browser is free to optimize the management of intersections as it sees fit.
 
 ```js
 const spyTargetWithIntersectionObserver = useCallback(
@@ -85,7 +85,7 @@ const spyTargetWithIntersectionObserver = useCallback(
     options, // options to pass to IntersectionObserver
     valueToBeEmitted, // emit this value if intersecting
   }) => {
-    // Do not create a new IntersectionObserver if no target provided.
+    // Do not create a new IntersectionObserver if no target is provided.
     if (!target) {
       return () => {}
     }
@@ -125,7 +125,7 @@ Cause I need to get the last emitted value from the `combine$`. I choose `Behavi
 
 ### Reusable
 
-The `ScrollSpyGroupManagerProvider` can spy not only one single list. If there are two list to spy, I can make them into two group by providing a group name when using it's API.
+The `ScrollSpyGroupManagerProvider` can spy not only one single list. If there are two list to spy, I can make them into two groups by providing `groupName`s when using it's API.
 
 ```js
 const unSpyCategory = spyTargetWithIntersectionObserver({
