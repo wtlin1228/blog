@@ -9,7 +9,7 @@ cover: cover.jpg
 
 Performance is User Experience. So this post will show how I create a performant menu.
 
-<iframe src="https://giphy.com/embed/TCyuKR0vRwnnM2DjpX" width="278" height="480" frameBorder="0"></iframe>
+<img src="https://media.giphy.com/media/TCyuKR0vRwnnM2DjpX/giphy.gif" width="278" height="480"/>
 
 Below is the performance recording for my menu under 6x slowdown CPU (with 8 categories and each category has 10 items). You can see there are no dropping frames when I scroll through all the 80-items long menu.
 
