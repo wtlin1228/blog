@@ -1,9 +1,9 @@
 ---
-title: Slow Down Your Team with Wrong Abstraction
+title: Don't Slow Down Your Team with Wrong Abstraction
 excerpt:
 date: 2021-11-21
 tags: [react, shared-component, the-wrong-abstraction]
-slug: slow-down-your-team-with-wrong-abstraction
+slug: dont-slow-down-your-team-with-wrong-abstraction
 cover: cover.jpg
 ---
 
