@@ -223,7 +223,7 @@ There must and have to be abstraction in our codebase after all. What we can do 
 
 ## Reference
 
-- [The Wrong Abstraction - Dan Abramov](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction)
-- [The WET Codebase - Sandi Metz](https://overreacted.io/the-wet-codebase/)
+- [The Wrong Abstraction - Sandi Metz](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction)
+- [The WET Codebase - Dan Abramov](https://overreacted.io/the-wet-codebase/)
 - [On the Spectrum of Abstraction - Cheng Lou](https://www.youtube.com/watch?v=mVVNJKv9esE&ab_channel=ReactEurope)
 - [Design Systems: Walking the Line Between Flexibility and Consistency - Sid Kshetrapal](https://portal.gitnation.org/contents/walking-the-line-between-flexibility-and-consistency)
