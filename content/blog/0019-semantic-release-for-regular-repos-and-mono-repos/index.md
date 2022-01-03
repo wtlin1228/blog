@@ -29,7 +29,7 @@ In my opinion, `semantic-release` not only improves our development experience b
 3. Bump to version `x.y.z` based on those new commits
 4. Update `CHANGELOG` for root package and sub-packages
 5. (optional) Update version to `x.y.z` for root package
-6. (optional) Update versions for `peerDependencies` of sub-packages
+6. (optional) Update versions of `peerDependencies` for sub-packages
 7. Create `tag`, `release` for version `x.y.z`
 8. Merge `master` branch back to `develop` branch
 9. Publish version `x.y.z` to the registry
