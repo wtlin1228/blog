@@ -121,11 +121,11 @@ Complete code for my `ScrollSpyGroupManagerProvider` is [here](https://github.co
 
 ### Remember last state when navigation back to Menu
 
-Cause I need to get the last emitted value from the `combine$`. I choose `BehaviorSubject` instead of `Subject`. It's a variant of `Subject` that requires an initial value and emits its current value whenever it is subscribed to.
+Cause I need to get the last emitted value from the `combine$`. I choose `BehaviorSubject` instead of `Subject`. It's a variant of `Subject` that requires an initial value and emits its current value whenever it is subscribed.
 
 ### Reusable
 
-The `ScrollSpyGroupManagerProvider` can spy not only one single list. If there are two list to spy, I can make them into two groups by providing `groupName`s when using it's API.
+The `ScrollSpyGroupManagerProvider` can spy not only one single list. If there are two list to spy, I can make them into two groups by providing `groupName`s when using its API.
 
 ```js
 const unSpyCategory = spyTargetWithIntersectionObserver({
