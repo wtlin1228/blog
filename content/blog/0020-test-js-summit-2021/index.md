@@ -11,7 +11,7 @@ This is my note for [TestJS Summit 2021](https://testjssummit.com/).
 
 # Testing Pyramid Makes Little Sense, What We Can Use Instead
 
-Recommend: ♥︎♥︎♥︎♥︎♥︎
+Recommend: ❤️❤️❤️❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/testing-pyramid-makes-little-sense-what-we-can-use-instead)
 
@@ -61,7 +61,7 @@ Feature Iterations:
 
 # Test Effective Development
 
-Recommend: ♥︎♡♡♡♡
+Recommend: ❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/test-effective-development)
 
@@ -82,7 +82,7 @@ Write `single action` + `integrated` tests for small app and `single action` + `
 
 Introduce how to mock network requests with [cy.request](https://docs.cypress.io/api/commands/server#cy-request) and [cy.intercept](https://docs.cypress.io/api/commands/intercept) in Cypress.
 
-Recommend: ♥︎♥︎♡♡♡
+Recommend: ❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/network-requests-with-cypress)
 
@@ -90,13 +90,13 @@ Video: [Watch on GitNation](https://portal.gitnation.org/contents/network-reques
 
 Introduce [Playwright](https://playwright.dev/) which is a new tool for end-to-end testing for modern web apps.
 
-Recommend: ♥︎♥︎♡♡♡
+Recommend: ❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/playwright-test-runner)
 
 # It's a (Testing) Trap! - Common Testing Pitfalls and How to Solve Them
 
-Recommend: ♥︎♥︎♥︎♡♡
+Recommend: ❤️❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/its-a-testing-trap-common-testing-pitfalls-and-how-to-solve-them)
 
@@ -209,7 +209,7 @@ it("should create and read product", () => {
 
 # Test your UI in the REAL Browser
 
-Recommend: ♥︎♥︎♡♡♡
+Recommend: ❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/test-your-ui-in-the-real-browser)
 
@@ -240,7 +240,7 @@ Post: Read on [storybook.js.org/blog](https://storybook.js.org/blog/interaction-
 
 # Tests That Help you Find Defects Faster
 
-Recommend: ♥︎♥︎♥︎♡♡
+Recommend: ❤️❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/tests-that-help-you-find-defects-faster)
 
