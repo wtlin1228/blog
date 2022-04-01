@@ -198,4 +198,4 @@ Here is the [no-library example](https://github.com/wtlin1228/graphql-playground
 
 # Conclusion
 
-Hope the ☃ race condition ❅ doesn't bother you anyway. 😂
+The ☃ code ❅ never bothered me anyway. 😂
