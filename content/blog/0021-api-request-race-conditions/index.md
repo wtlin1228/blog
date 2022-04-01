@@ -38,7 +38,7 @@ Whenever you query `searchPosts` with any `keyword`, it will response to you wit
 
 In order to make the demo easier, I choose `React`, `JavaScript` and `TypeScript` as special keywords. The server will sleep for `1s`, `5s` and `10s` before responding to those queries if the keyword is the special one.
 
-You can also start the server locally by `npm start server` then open `http://localhost:3333/graphql` to try it yourself.
+You can also start the server locally by `npm start server` then open `http://localhost:3333/graphql` and try it yourself.
 
 # Redux Saga
 
@@ -104,7 +104,7 @@ Apollo Client handles API request race conditions naturally. Because Apollo Clie
 - `searchPosts({"keyword":"JavaScript"})`
 - `searchPosts({"keyword":"TypeScript"})`
 
-You can install the Apollo Client DevTools to try it yourself:
+You can install the Apollo Client DevTools and try it yourself:
 
 ![apollo-client](./apollo-client.png)
 
@@ -145,7 +145,7 @@ React Query also handles API request race conditions naturally. The unique key y
 - `['posts', 'JavaScript']`
 - `['posts', 'TypeScript']`
 
-You can open the React Query DevTools to try it yourself:
+You can open the React Query DevTools and try it yourself:
 
 ![react-query](./react-query.png)
 
@@ -187,6 +187,10 @@ useEffect(() => {
   }
 }, [keyword])
 ```
+
+You can open the Network tab in devTools and try it yourself:
+
+![no-library](./no-library.png)
 
 Here is the [no-library example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/no-library) in my demo repository.
 
