@@ -5,10 +5,10 @@ date: 2022-04-01
 tags:
   [race-conditions, apollo-client, react-query, redux-observable, redux-saga]
 slug: handle-api-request-race-conditions-in-react
-cover: cover.jpg
+featured: images/cover.jpg
 ---
 
-<img src="./cover.jpg" alt="cover" >
+![cover](./images/cover.jpg)
 
 As a frontend developer, it's essential to know how to handle API race conditions. In this post, I want to show you how to handle it with different libraries. From the old school ones `redux-saga`, `redux-observable` to the more modern ones `react-query`, `apollo-client` and even with `fetch` only.
 

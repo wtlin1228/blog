@@ -6,7 +6,7 @@ module.exports = {
       summary: `who lives and works in Taiwan being a frontend engineer.`,
     },
     description: `This is my developing logbook. Welcome, I'm delighted to see you! :)`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    siteUrl: `https://leonerd.gatsbyjs.io/`,
     social: {
       twitter: `WeiTangLin1`,
     },
