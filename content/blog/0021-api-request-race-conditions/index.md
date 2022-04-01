@@ -188,7 +188,7 @@ useEffect(() => {
 }, [keyword])
 ```
 
-Here is the [react-query example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/no-library) in my demo repository.
+Here is the [no-library example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/no-library) in my demo repository.
 
 # Conclusion
 
