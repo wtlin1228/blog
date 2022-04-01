@@ -8,6 +8,8 @@ slug: handle-api-request-race-conditions-in-react
 cover: cover.jpg
 ---
 
+![cover](./cover.jpg)
+
 As a frontend developer, it's essential to know how to handle API race conditions. In this post, I want to show you how to handle it with different libraries. From the old school ones `redux-saga`, `redux-observable` to the more modern ones `react-query`, `apollo-client` and even with `fetch` only.
 
 The code used to demo for each case can be found in [this repository](https://github.com/wtlin1228/graphql-playground). Feel free to open PRs for adding more examples.
