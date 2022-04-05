@@ -102,7 +102,7 @@ drawnFibersMap.get(fiber)
 
 ## General pattern of React
 
-I would use this general pattern of React to traverse the fiber tree.
+I will use this general pattern of React to traverse the fiber tree.
 
 ```ts
 function doSomething(fiber) {
@@ -145,7 +145,7 @@ function gatherAsciiArtTreeRecursively(fiber, path) {
 
 ## Color fibers with `Chalk`
 
-I would use `Chalk` to do the color staff since it has been installed inside React already.
+I will use `Chalk` to do the color staff since it has been installed inside React already.
 
 ```ts
 // My debug tools.
@@ -254,7 +254,7 @@ function getAsciiArtLines({
 
 # Hold the `FiberRoot`
 
-It would be impossible to access the whole fiber tree if I weren't holding the `FiberRoot`. So I need to find an entry point then keep the `FiberRoot`. I choose to do it inside [updateContainer](https://github.com/facebook/react/blob/v18.0.0/packages/react-reconciler/src/ReactFiberReconciler.new.js#L381) of `ReactFiberReconciler.new.js`.
+In order to access the whole fiber tree, I need to find an entry point then keep the `FiberRoot`. I choose to do it inside [updateContainer](https://github.com/facebook/react/blob/v18.0.0/packages/react-reconciler/src/ReactFiberReconciler.new.js#L381) of `ReactFiberReconciler.new.js`.
 
 ```ts
 // packages/react-reconciler/src/ReactFiberReconciler.new.js
