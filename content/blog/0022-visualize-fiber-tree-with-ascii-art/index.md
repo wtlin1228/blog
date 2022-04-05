@@ -14,7 +14,7 @@ featured: images/cover.jpg
 
 ---
 
-This series of blog posts is about studying the source code of React. In this post, I want to show how I visualize the fiber tree with ASCII Art. I can inspect the `workInProgress` tree and `current` tree with my tools as below:
+This series of blog posts is about studying the source code of [React 18](https://github.com/facebook/react/tree/v18.0.0). In this post, I want to show how I visualize the fiber tree with ASCII Art. So I can inspect the `workInProgress` tree and `current` tree with my tools as below:
 
 ```
 HostRoot─────App───────A─────div──────B1─────div──────C1────'c1'
@@ -38,44 +38,7 @@ HostRoot─────App───────A─────div────�
 
 <img src="https://media.giphy.com/media/8lvpUQmGJXaP8JjUcx/giphy.gif" width="100%" >
 
-# Hold the `FiberRoot`
-
-It would be impossible to access the whole fiber tree if I weren't holding the `FiberRoot`. Therefore, my first step is to find an entry point then keep the `FiberRoot`. I choose to do it inside [updateContainer](https://github.com/wtlin1228/react/blob/v18.0.0/packages/react-reconciler/src/ReactFiberReconciler.new.js#L381) of `ReactFiberReconciler.new.js`.
-
-```ts
-// packages/react-reconciler/src/ReactFiberReconciler.new.js
-
-export function updateContainer(
-  element: ReactNodeList,
-  container: OpaqueRoot,
-  parentComponent: ?React$Component<any, any>,
-  callback: ?Function
-): Lane {
-  // emit...
-
-  const root = scheduleUpdateOnFiber(current, lane, eventTime)
-
-  // I prefix my utils with "leonerd__" to distinguish them from the original code.
-  leonerd__setFiberRoot(root)
-
-  // emit...
-}
-```
-
-```ts
-// My debug tools.
-// packages/react-reconciler/leonerdDebugTools.js
-
-import type { FiberRoot } from "./src/ReactInternalTypes"
-
-let fiberRoot
-
-export function leonerd__setFiberRoot(root: FiberRoot): void {
-  fiberRoot = root
-}
-```
-
-# Get fiber's display name
+# Determine how to display fibers
 
 I need to decide what to display for a fiber. Because each fiber has a tag. I can determine the display name based on it. In this case, I only care about these five tags:
 
@@ -289,13 +252,55 @@ function getAsciiArtLines({
 
 **Note**: Each fiber could be colored with different chalk based on `fiber.flags` if I want to see which fiber is incomplete or something else.
 
-## Draw the trees
+# Hold the `FiberRoot`
 
-### Draw the `current` tree
+It would be impossible to access the whole fiber tree if I weren't holding the `FiberRoot`. So I need to find an entry point then keep the `FiberRoot`. I choose to do it inside [updateContainer](https://github.com/facebook/react/blob/v18.0.0/packages/react-reconciler/src/ReactFiberReconciler.new.js#L381) of `ReactFiberReconciler.new.js`.
+
+```ts
+// packages/react-reconciler/src/ReactFiberReconciler.new.js
+
+export function updateContainer(
+  element: ReactNodeList,
+  container: OpaqueRoot,
+  parentComponent: ?React$Component<any, any>,
+  callback: ?Function
+): Lane {
+  // emit...
+
+  const root = scheduleUpdateOnFiber(current, lane, eventTime)
+
+  // I prefix my utils with "leonerd__" to distinguish them from the original code.
+  leonerd__setFiberRoot(root)
+
+  // emit...
+}
+```
+
+```ts
+// My debug tools.
+// packages/react-reconciler/leonerdDebugTools.js
+
+import type { FiberRoot } from "./src/ReactInternalTypes"
+
+let fiberRoot
+
+export function leonerd__setFiberRoot(root: FiberRoot): void {
+  fiberRoot = root
+}
+```
+
+# Draw the trees
+
+## Draw the `current` tree
+
+The entry point of `current` tree is `fiberRoot.current`.
 
 <!-- prettier-ignore-start -->
 
 ```ts
+// My debug tools.
+// packages/react-reconciler/leonerdDebugTools.js
+
 export function leonerd__showCurrentFiberTree(
   workInProgress: Fiber | null
 ): void {
@@ -316,11 +321,16 @@ export function leonerd__showCurrentFiberTree(
 
 <!-- prettier-ignore-end -->
 
-### Draw the `workInProgress` tree
+## Draw the `workInProgress` tree
+
+The entry point of `workInProgress` tree is `fiberRoot.current.alternate`.
 
 <!-- prettier-ignore-start -->
 
 ```ts
+// My debug tools.
+// packages/react-reconciler/leonerdDebugTools.js
+
 export function leonerd__showWorkInProgressFiberTree(
   workInProgress: Fiber | null
 ): void {
