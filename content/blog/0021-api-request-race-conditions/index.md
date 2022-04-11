@@ -58,7 +58,7 @@ function* watchLastFetchUser() {
 }
 ```
 
-Here is the [redux-saga example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/redux-saga) in my demo repository.
+Here is the [redux-saga example](https://github.com/wtlin1228/graphql-playground/tree/v1.0.0/apps/client-demo-api-race-conditions/src/app/redux-saga) in my demo repository.
 
 # Redux Observable
 
@@ -78,7 +78,7 @@ export default function searchPostsEpic(action$) {
 }
 ```
 
-Here is the [redux-observable example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/redux-observable) in my demo repository.
+Here is the [redux-observable example](https://github.com/wtlin1228/graphql-playground/tree/v1.0.0/apps/client-demo-api-race-conditions/src/app/redux-observable) in my demo repository.
 
 # Apollo Client
 
@@ -110,7 +110,7 @@ You can install the Apollo Client DevTools and try it yourself:
 
 ![apollo-client](./apollo-client.png)
 
-Here is the [apollo-client example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/apollo-client) in my demo repository.
+Here is the [apollo-client example](https://github.com/wtlin1228/graphql-playground/tree/v1.0.0/apps/client-demo-api-race-conditions/src/app/apollo-client) in my demo repository.
 
 ## An interesting behavior
 
@@ -151,7 +151,7 @@ You can open the React Query DevTools and try it yourself:
 
 ![react-query](./react-query.png)
 
-Here is the [react-query example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/react-query) in my demo repository.
+Here is the [react-query example](https://github.com/wtlin1228/graphql-playground/tree/v1.0.0/apps/client-demo-api-race-conditions/src/app/react-query) in my demo repository.
 
 ## What's different from Apollo Client
 
@@ -194,7 +194,7 @@ You can open the Network tab in devTools and try it yourself:
 
 ![no-library](./no-library.png)
 
-Here is the [no-library example](https://github.com/wtlin1228/graphql-playground/tree/main/apps/client/src/app/demos/api-race-conditions/no-library) in my demo repository.
+Here is the [no-library example](https://github.com/wtlin1228/graphql-playground/tree/v1.0.0/apps/client-demo-api-race-conditions/src/app/no-library) in my demo repository.
 
 # Conclusion
 
