@@ -1,10 +1,10 @@
 ---
-title: [WIP] Summary of TypeScript Congress 2022
+title: WIP - Summary of TypeScript Congress 2022
 excerpt:
 date: 2022-05-22
 tags: [conference, typescript, types]
 slug: summary-of-typescript-congress-2022
-cover: images/cover.jpg
+featured: images/cover.jpg
 ---
 
 ![cover](./images/cover.jpg)
