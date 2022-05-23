@@ -33,19 +33,69 @@ Video: [Watch on GitNation](https://portal.gitnation.org/contents/typescript-and
 
 # Lessons from Maintaining TypeScript Libraries
 
+Mark Erikson showed us the lessons that he's learned working on the TypeScript aspects of the Redux libraries over the last few years.
+
+🔖 What an impressive work and an amazing talk! 👏
+
+---
+
 Recommend: ❤️❤️❤️❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/lessons-from-maintaining-typescript-libraries)
 
+Slide: [Read on blog.isquaredsoftware.com](https://blog.isquaredsoftware.com/presentations/2022-04-ts-lib-maintenance)
+
+---
+
+- Tradeoffs of different ways to define TS types for a library
+- How to target different versions of TS, and considerations for determining the supported version range
+- Migrating existing JS libraries to TS
+- Differences between writing "app" types and "library" types
+- Managing and versioning public types APIs
+- Tips and tricks used by types from the Redux libraries
+- TS limitations and possible language-level improvements
+
 # Type Safety At Runtime in TypeScript
+
+Kajetan Świątek showed us how to keep the type safety after the compilation step of TypeScript by [Zod](https://github.com/colinhacks/zod).
+
+🔖 I would like to try `Zod` in my upcoming project! 🤩
+
+---
+
+Recommend: ❤️❤️❤️
+
+Video: [Watch on GitNation](https://portal.gitnation.org/contents/type-safety-at-runtime-in-typescript)
 
 # Onboarding React Developers To TypeScript
 
+Sylvana Santos showed us her preferred way to onboard a React developer to TypeScript.
+
+🔖 To me, this talk is more like "How to hold a workshop".
+
+---
+
+Recommend: ❤️
+
+Video: [Watch on GitNation](https://portal.gitnation.org/contents/onboarding-react-developers-to-typescript)
+
+---
+
 # TypeScript for Library Authors: Harnessing the Power of TypeScript for DX
+
+Daniel Roe showed us how to improve your user's experience by leveraging TypeScript when you are maintaining libraries.
+
+🔖 I recommend this course [Production-Grade TypeScript](https://frontendmasters.com/courses/production-typescript/) on FrontendMasters if you would like to learn more details.
+
+---
+
+Recommend: ❤️❤️❤️
+
+Video: [Watch on GitNation](https://portal.gitnation.org/contents/typescript-for-library-authors-harnessing-the-power-of-typescript-for-dx)
 
 # Understanding types as sets
 
-Titian-Cornel Cernicova-Dragomir introduced the concept of variance as in pertains to generic types.
+Titian-Cornel Cernicova-Dragomir introduced the concept of variance as it pertains to generic types.
 
 🔖 I love the way Titian-Cornel showing us that type is a set of values that a variable can process.
 
@@ -301,9 +351,9 @@ Video: [Watch on GitNation](https://portal.gitnation.org/contents/alternatives-t
 
 # How to build distributed systems in TypeScript
 
-Loren Sands-Ramshaw showed us why should we use `temporal` to build distributed systems.
+Loren Sands-Ramshaw showed us why we should use `Temporal` to build distributed systems.
 
-🔖 It's amazing! Temporal makes reliability much easier!
+🔖 It's amazing! `Temporal` makes reliability much easier!
 
 ---
 
