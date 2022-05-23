@@ -23,6 +23,8 @@ This is my note for [TypeScript Congress 2022](https://typescriptcongress.com/).
 - [Plug-in architecture: how TypeScript let us paint-by-numbers](#plug-in-architecture-how-typescript-let-us-paint-by-numbers)
 - [How to properly handle URL slug changes in Next.js](#how-to-properly-handle-url-slug-changes-in-nextjs)
 
+---
+
 # TypeScript and the Database: Who Owns the Types?
 
 Recommend: ❤️❤️❤️❤️❤️
@@ -188,21 +190,18 @@ console.log(p.id) // valid
 
 ### The confusing part about unions and intersections
 
-Union of object types:
-
-- Can hold the union of values form constituent types
-- Allow access to an **intersection** of members
-
-Intersection of object types
-
-- Can hold values in the intersection of constituent types
-- Allow access to a **union** of members
+- Union of object types:
+  - Can hold the union of values form constituent types
+  - Allow access to an **intersection** of members
+- Intersection of object types:
+  - Can hold values in the intersection of constituent types
+  - Allow access to a **union** of members
 
 ### Filtering a union of objects
 
 - Use a conditional
-- Intersections also do the hob
-  - Mostly
+- Intersections also do the job
+  - Mostly 😁
 
 ```ts
 type Shape =
@@ -229,12 +228,10 @@ What is a base type when we talk about sets?
 
 ### For other typed languages
 
-Again, our intuition is shaped by nominally typed languages.
-
-We can check the type definition:
-
-- For extends clauses (or equivalent)
-- For implements clauses (or equivalent)
+- Again, our intuition is shaped by nominally typed languages.
+- We can check the type definition:
+  - For extends clauses (or equivalent)
+  - For implements clauses (or equivalent)
 
 C++
 
@@ -276,14 +273,12 @@ class Dog:Animal {
 
 ### For TypeScript
 
-What does it mean to have a variable typed as a base type?
-
-What can a variable of type Animal hold:
-
-- It can hold an Animal `let a1: Animal = new Animal()`
-- It can hold a Dog `let a2: Animal = new Dog()`
-- It can also hold a Cat `let a3: Animal = new Cat()`
-- It can hold any subtype of Animal `let a4: Animal = new SiameseCat()`
+- What does it mean to have a variable typed as a base type?
+- What can a variable of type Animal hold:
+  - It can hold an Animal `let a1: Animal = new Animal()`
+  - It can hold a Dog `let a2: Animal = new Dog()`
+  - It can also hold a Cat `let a3: Animal = new Cat()`
+  - It can hold any subtype of Animal `let a4: Animal = new SiameseCat()`
 
 Generally, a variable typed as a base type can hold an instance of the type, or any subtype.
 
