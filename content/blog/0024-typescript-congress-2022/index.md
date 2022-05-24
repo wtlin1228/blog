@@ -1,5 +1,5 @@
 ---
-title: WIP - Summary of TypeScript Congress 2022
+title: Summary of TypeScript Congress 2022
 excerpt:
 date: 2022-05-22
 tags: [conference, typescript, types]
@@ -27,9 +27,219 @@ This is my note for [TypeScript Congress 2022](https://typescriptcongress.com/).
 
 # TypeScript and the Database: Who Owns the Types?
 
+Dan Vanderkam presented the choose-your-own-adventure story that you face when combining TypeScript and SQL and will walk you through the tradeoffs between the various options.
+
+🔖 It's good to learn about the tradeoffs of different approaches through a simple example.
+
+---
+
 Recommend: ❤️❤️❤️❤️❤️
 
 Video: [Watch on GitNation](https://portal.gitnation.org/contents/typescript-and-the-database-who-owns-the-types)
+
+---
+
+## Raw SQL + Hand-coded types
+
+### Good
+
+- Zero abstraction
+- You do get some type safety
+
+### Bad
+
+- Repetition between DB + TS
+- Types don't stay in sync: no Single Source of Truth
+
+---
+
+Next question: should the single source of truth be in the DB or TS?
+
+```
+  Who owns the Types?
+          /\
+      DB /  \ TypeScript
+        /    \
+       ?      ?
+```
+
+## In TypeScript
+
+TypeScript is the single source of truth.
+
+We can use ORM.
+
+```
+  Who owns the Types?
+          /\
+      DB /  \ TypeScript
+        /    \
+              ORM!   TypeORM
+                     Sequelize
+                     Waterline
+                     Prisma
+                     etc.
+```
+
+### Good
+
+- Keep your types & DB in sync
+- Generate migrations for you
+- Low boilerplate for simple queries
+- ORMs are undeniably popular
+
+### Bad
+
+- A classic "leaky abstraction"
+  - You need to know SQL
+  - You need to know TypeScript
+  - You need to know ORM
+- Performance is confusing
+- They make other users of your DB second-class citizens
+- Lots more churn in ORMs than in databases
+
+## In Database
+
+Database is the single source of truth.
+
+We can use schema generator.
+
+```
+        Who owns the Types?
+                /\
+            DB /  \ TypeScript
+              /    \
+ Schema Generator   ORM!   TypeORM
+                           Sequelize
+                           Waterline
+                           Prisma
+                           etc.
+```
+
+### Good
+
+- Keep your types & DB in sync
+- Key building block (more on this later)
+
+### Bad
+
+- Add a build step
+- Still have to manually add types to queries
+- Some DB types are hard to model in TS (e.g. integers)
+
+---
+
+Next question: should we use QueryBuilder or not?
+
+```
+        Who owns the Types?
+                /\
+            DB /  \ TypeScript
+              /    \
+ Schema Generator   ORM!   TypeORM
+          |                Sequelize
+          |                Waterline
+          |                Prisma
+    QueryBuilder?          etc.
+          /\
+      No /  \ Yes
+        /    \
+       ?      ?
+```
+
+## Use QueryBuilder
+
+We can use Knex.js.
+
+```
+        Who owns the Types?
+                /\
+            DB /  \ TypeScript
+              /    \
+ Schema Generator   ORM!   TypeORM
+          |                Sequelize
+          |                Waterline
+          |                Prisma
+    QueryBuilder?          etc.
+          /\
+      No /  \ Yes
+        /    \
+       ?      knex.js
+```
+
+### Good
+
+- With schema generation, they get you accurate types for your queries
+- Less context-switching between languages
+
+### Bad
+
+- Another "leaky abstraction"
+  - You need to know TS
+  - You need to know SQL
+  - You need to know your QueryBuilder
+
+## No QueryBuilder
+
+Directly convert your SQL query into TypeScript types.
+
+```
+                  Who owns the Types?
+                          /\
+                      DB /  \ TypeScript
+                        /    \
+           Schema Generator   ORM!   TypeORM
+                    |                Sequelize
+                    |                Waterline
+                    |                Prisma
+              QueryBuilder?          etc.
+                    /\
+                No /  \ Yes
+                  /    \
+PgTyped   SQL -> TS     knex.js
+@slonik/typegen
+```
+
+### Good
+
+- You get types for your queries
+- Zero abstraction: you're just writing SQL
+
+### Bad
+
+- Not all types can be accurately derived this way (nullability issues)
+- Adds a build step
+- A little "ducky" w/o dbschema
+- Lots of fuss for simple queries
+
+## SQL -> TS + a smidge of query building
+
+```
+                  Who owns the Types?
+                          /\
+                      DB /  \ TypeScript
+                        /    \
+           Schema Generator   ORM!   TypeORM
+                    |                Sequelize
+                    |                Waterline
+                    |                Prisma
+              QueryBuilder?          etc.
+                    /\
+                No /  \ Yes
+                  /    \
+  SQL -> TS + a smidge of query building
+  zapatos, PgTyped + crudely-typed
+```
+
+### Good
+
+- Zero abstraction/overhead for complex SQL queries
+- Minimum fuss, dbschema types for simple queries
+
+### Bad
+
+- Adds a build step
+- You might be tempted to put logic in JS instead of SQL
 
 # Lessons from Maintaining TypeScript Libraries
 
@@ -46,6 +256,8 @@ Video: [Watch on GitNation](https://portal.gitnation.org/contents/lessons-from-m
 Slide: [Read on blog.isquaredsoftware.com](https://blog.isquaredsoftware.com/presentations/2022-04-ts-lib-maintenance)
 
 ---
+
+See the slide for the details of each topic below.
 
 - Tradeoffs of different ways to define TS types for a library
 - How to target different versions of TS, and considerations for determining the supported version range
