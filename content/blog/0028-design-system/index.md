@@ -49,7 +49,7 @@ Good component API.
 
 It depends! And there is a spectrum of flexibility.
 
-Consistent <--------------> Flexible
+`Consistent <--------------> Flexible`
 
 ### Consistent
 
