@@ -60,13 +60,13 @@ it("...", () => {
 ```
 
 It works but the developer experience could be improved further.
-So, let's write a custom query for it.
+So, let's write a custom query for it. It's easy by leveraging the `buildQueries` provided by Testing Library.
 
 ```js
 // test-utils/custom-queries/byThousandSeparatedNumber.js
 
 import { buildQueries, queryAllByText } from "@testing-library/react"
-import thousandSeparator from "hq/report/utils/thousandSeparator"
+import thousandSeparator from "utils/thousandSeparator"
 
 const queryAllByThousandSeparatedNumber = (container, id, options) =>
   queryAllByText(container, thousandSeparator(id), options)
