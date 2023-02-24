@@ -9,59 +9,27 @@ featured: images/cover.jpg
 
 ![cover](./images/cover.jpg)
 
-When talking about React component libraries, there are already plenty of good ones for us to choose from directly, like `material-ui`, `react-spectrum`, `fluentui`, `polaris`, etc. However, I just can't stop thinking about building one for myself to use in my upcoming site. So I list how and why those technical decisions are made for `wtlin-ui`.
+When it comes to React component libraries, there's no shortage of excellent options to choose from. Popular libraries like `material-ui`, `react-spectrum`, `fluentui`, and `polaris` have already earned their place as favorites among developers. Nevertheless, as I plan for an upcoming website project, I can't shake the idea of creating my own library from scratch. In this blog post, I'll explain how and why I made certain technical decisions for my new library, `wtlin-ui`.
 
-- choose [Emotion][emotion] as the style engine
-- add theme-based [system CSS props][system-css-properties] and [`sx` Prop][the-sx-prop] with [Styled System][styled-system]
-- enable [Color Mode][prefers-color-scheme] without a flash of unstyled content by providing theme colors in the [CSS custom properties][css-custom-properties]
+These decisions include choosing [Emotion][emotion] as the style engine, implementing theme-based [system CSS props][system-css-properties] and [`sx` Prop][the-sx-prop] with the [Styled System][styled-system] library, and providing theme colors via [CSS custom properties][css-custom-properties] to enable [Color Mode][prefers-color-scheme] without the dreaded flash of unstyled content.
 
-## Choose Emotion as the style engine
+## Choose `Emotion` as the style engine
 
-The trend of styling frontend applications is:
+When it comes to styling frontend applications, there are several popular options available, including CSS, SASS, CSS-in-JS, and zero-runtime libraries. As I considered my choices, I narrowed my focus to two CSS-in-JS libraries (styled-components and Emotion) and two zero-runtime libraries (`Linaria` and `vanilla-extract`).
 
-1. CSS
-1. SASS
-1. CSS-in-JS
-1. Zero runtime
+Out of these four options, `styled-components` is undoubtedly one of the most well-established and widely used libraries, with extensive documentation. However, I ultimately decided to use `Emotion` instead. `Emotion` has a smaller bundle size and offers superior performance and more flexibility, making it the ideal choice for my project. In fact, the Storybook and MUI teams both recommend using `Emotion` for various use cases.
 
-Som I was choosing from two CSS-in-JS libraries `styled-component`, `emotion` and two zero-runtime libraries `linaria`, `vanilla-extract`.
+`Linaria` was another library that caught my attention. This zero-runtime CSS-in-JS library extracts CSS to standalone CSS files during build time, eliminating the need for runtime CPU overhead. This approach also offers caching benefits and makes it possible to deduplicate styles using [Atomic CSS][atomic-css] CSS. However, the lack of top-notch documentation and dedicated website, combined with the trial-and-error process of finding information, ultimately led me away from choosing this library.
 
-### Styled Component
+Finally, I considered `vanilla-extract`, a modern solution with excellent TypeScript integration and no runtime overhead. While its minimal features, straightforwardness, and opinionated nature appealed to me, the fact that it processes everything at compile time and generates static CSS files was not enough to overcome the significant downside of code co-location.
 
-For sure `styled-component` is one of the most popular and mature solutions, with good documentation. But the bundle size is larger than `emotion` and `emotion` also has better performance and flexibility.
-
-See also:
-
-- [Storybook Team - How we migrated 541 components from Styled Components to Emotion][storybook-styled-component]
-- [MUI Team - We strongly recommend using Emotion for SSR projects][mui-styled-component]
-
-### Linaria
-
-Linaria is a zero-runtime CSS in JS library. CSS is extracted to CSS files during build time. So there is no JS bundle or runtime CPU overhead. Also, this brings caching benefits since these static CSS files may change at a different cadence than the JS files and also opens the door to the possibility of deduplicating styles (i.e. [Atomic CSS][atomic-css]).
-
-Although all the features look very promising to me, the documentation is not top-notch, there isn't a dedicated website, no search feature and it feels like trial & error when trying to find a piece of information.
-
-See also:
-
-- [Airbnb Team - Airbnb’s Trip to Linaria][airbnb-trip-to-linaria]
-
-### Vanilla Extract
-
-Modern solution with great TypeScript integration and no runtime overhead. It's pretty minimal in its features, straightforward and opinionated. Everything is processed at compile time, and it generates static CSS files. Successor of Treat, also called "Treat v3", is developed and maintained by the same authors.
-
-Code co-location is the main reason that stops me from choosing `vanilla-extract`.
+Ultimately, after careful consideration, I decided to go with `Emotion` for its superior performance, flexibility, and overall suitability for my project's needs.
 
 ## Add theme-based system CSS props and `sx` prop with Styled System
 
-System CSS properties and the `sx` prop are getting more and more popular now. Many frameworks like `material-ui` support them nowadays. And I go for it since it helps simplify the components and prevent developers from jumping back and forth just to check the styles used only for doing some trivial layout.
+System CSS properties and the sx prop are becoming increasingly popular. Many frameworks, like `material-ui`, support them nowadays. I personally use them as they simplify components and prevent developers from jumping back and forth to check trivial layout styles.
 
-See more:
-
-- [MUI Team - The sx prop][mui-the-sx-prop]
-- [GitHub Team - The sx prop][github-the-sx-prop]
-- [Theme UI - The sx prop][theme-ui-the-sx-prop]
-
-I don't like to write such code like this whenever I want to retrieve values from the theme.
+Writing code like this whenever you want to retrieve values from the theme can become tedious:
 
 <!-- prettier-ignore-start -->
 ```tsx
@@ -78,9 +46,9 @@ const Foo = () => {
 ```
 <!-- prettier-ignore-end -->
 
-### The theme-based Props
+### The theme-based Style Props
 
-Style functions of `styled-system` will try to find a value from the theme object, these could be deeply nested values, and fallback to a hard-coded value if they are unable to.
+Style functions of `styled-system` will try to find a value from the theme object, even for deeply nested values, and fallback to a hard-coded value if they can't.
 
 ```ts
 // font-size: 24px (theme.fontSizes[4])
@@ -98,7 +66,7 @@ Style functions of `styled-system` will try to find a value from the theme objec
 // line-height: 1.5 (theme.lineHeights.copy)
 <Box lineHeight="copy" />
 
-// renders CSS `50%` width since it's not defined in theme
+// renders CSS `50%` width since it's not defined in the theme
 <Box width={1/2} />
 ```
 
@@ -119,7 +87,7 @@ const sx = (props: SxProp) => css(props.sx)
 export default sx
 ```
 
-Next step, combine it with `styled` API provided by `emotion` (or `styled-component`):
+Next, combine it with `styled` API provided by `emotion` (or `styled-component`):
 
 ```ts
 import styled from "@emotion/styled"
@@ -129,7 +97,7 @@ type StyledBoxProps = SxProp
 const Box = styled.div<StyledBoxProps>(sx)
 ```
 
-Then, the `Box` component can accept `sx` prop and can be used like this:
+Now, the `Box` component can accept `sx` prop and be used like this:
 
 ```tsx
 <Box
@@ -144,14 +112,14 @@ Then, the `Box` component can accept `sx` prop and can be used like this:
 </Box>
 ```
 
-The `sx` prop provides a lot of power, which means it is an easy tool to abuse. To best make use of it, we recommend following these guidelines:
+While the `sx` prop is powerful, it's important not to abuse it. Here are some guidelines:
 
 - Use the `sx` prop for small stylistic changes to components. For more substantial changes, consider abstracting your style changes into your own wrapper component.
-- Avoid nesting and pseudo-selectors in sx prop values when possible.
+- Avoid nesting and pseudo-selectors in `sx` prop values when possible.
 
 ### The System CSS Props
 
-For example, I would like my `Box` component to be able to accept not only the `sx` prop but also the space and typography CSS props. This could be done easily without much effort with `styled-system`.
+Suppose I want my `Box` component to accept not only the `sx` prop but also the `space` and `typography` CSS props. In that case, it can be done easily with `styled-system`:
 
 <!-- prettier-ignore-start -->
 ```ts
@@ -190,16 +158,14 @@ Now, my `Box` component can accept spacing and typography props like this:
 
 ## Enable Color Mode with CSS custom properties
 
-`renderToString` renders a React tree to an HTML string.
+The `renderToString` method renders a React tree to HTML string, including the `styles()` that are also rendered to string on the server-side. However, as there is no way to know the user's preference for color mode (apart from using a session), styles() are rendered with the default color mode, which is typically the light mode. This can result in two significant problems:
 
-The `styles()` are also rendered to string on the server side. And because there is no way to know the user's preference for color mode (except for using session), `styles()` will be rendered with the default color mode such as the light mode. This can cause two serious problems:
+1. the mismatching of content during hydration
+1. the flash of incorrectly styled content (which may not be critical but can still be problematic)
 
-1. the `className`s mismatch during hydration
-1. the flash of wrong styled content (well, only if you think it's serious)
+Fortunately, these issues can be resolved by taking advantage of CSS custom properties and an inline script.
 
-Those problems could be solved by leveraging the CSS custom properties and one inline script.
-
-1. create the global styles like this
+1. Create global styles like this:
 
    ```ts
    const lightColors = {
@@ -219,7 +185,7 @@ Those problems could be solved by leveraging the CSS custom properties and one i
    })
    ```
 
-2. style your component with CSS custom properties
+2. Style your component with CSS custom properties:
 
    ```ts
    const Body = styled.div({
@@ -228,7 +194,7 @@ Those problems could be solved by leveraging the CSS custom properties and one i
    })
    ```
 
-3. determine the color mode with inline script
+3. Determine the color mode with inline script
 
    ```tsx
    <Script id="set-color-mode" strategy="beforeInteractive">
@@ -251,93 +217,84 @@ Those problems could be solved by leveraging the CSS custom properties and one i
 ### CSS-in-JS without CSS custom properties
 
 ```
-
-               server            client
-                  │                 │
-                  │     /home       │
-              ┌───┤◄────────────────┤
-         SSR  │   │                 │
- (light mode) │   │                 │
-              └──►├────────────────►│
-                  │                 ├───┐
-                  │    /bundle.js   │   │ Construct DOM
-                  │◄────────────────┤   │
-                  │                 │◄──┘
-                  ├────────────────►│
-                  │                 ├───┐
-                  │                 │   │ Construct CSSOM
-                  │                 │   │
-                  │                 │◄──┘
-                  │                 │
-                  │                 ├─ ─ ─ render page with ─ ─
-                  │                 │        light mode      │
-                  │                 ├───┐                    │
-                  │                 │   │ Execute JS         │
-                  │                 │   │ hydrate with     Flash!!
-                  │                 │   │ dark mode          │
-                  │                 │   │ (mismatch ERROR ❌)│
-                  │                 │◄──┘                    │
-                  │                 │                        ▼
-                  │                 ├─ ─ ─ re-render with ─ ─ ─
-                  │                 │        dark mode
-                  │                 │
-                  │                 │
-                  │                 │
-                 ─┴─               ─┴─
-
+              server            client
+                 │                 │
+                 │     /home       │
+             ┌───┤◄────────────────┤
+        SSR  │   │                 │
+(light mode) │   │                 │
+             └──►├────────────────►│
+                 │                 ├───┐
+                 │    /bundle.js   │   │ Construct DOM
+                 │◄────────────────┤   │
+                 │                 │◄──┘
+                 ├────────────────►│
+                 │                 ├───┐
+                 │                 │   │ Construct CSSOM
+                 │                 │   │
+                 │                 │◄──┘
+                 │                 │
+                 │                 ├─ ─ ─ render page with ─ ─
+                 │                 │        light mode      │
+                 │                 ├───┐                    │
+                 │                 │   │ Execute JS         │
+                 │                 │   │ hydrate with     Flash!!
+                 │                 │   │ dark mode          │
+                 │                 │   │ (mismatch ERROR ❌)│
+                 │                 │◄──┘                    │
+                 │                 │                        ▼
+                 │                 ├─ ─ ─ re-render with ─ ─ ─
+                 │                 │        dark mode
+                 │                 │
+                 │                 │
+                 │                 │
+                ─┴─               ─┴─
 ```
 
 ### CSS-in-JS with CSS custom properties
 
 ```
-
-               server            client
-                  │                 │
-                  │     /home       │
-              ┌───┤◄────────────────┤
-         SSR  │   │                 │
-              │   │                 │
-              └──►├────────────────►│
-                  │                 ├───┐
-                  │    /bundle.js   │   │ Construct DOM
-                  │◄────────────────┤   │ Execute inline script
-                  │                 │◄──┘
-                  ├────────────────►│
-                  │                 ├───┐
-                  │                 │   │ Construct CSSOM
-                  │                 │   │
-                  │                 │◄──┘
-                  │                 │
-                  │                 ├─ ─ ─ render page with ─ ─
-                  │                 │         dark mode      │
-                  │                 ├───┐                    │
-                  │                 │   │ Execute JS         │
-                  │                 │   │ hydrate with   No Flash!!
-                  │                 │   │ dark mode          │
-                  │                 │   │ (no ERROR ✅)      │
-                  │                 │◄──┘                    │
-                  │                 │                        ▼
-                  │                 ├─ ─ ─ re-render with ─ ─ ─
-                  │                 │        dark mode
-                  │                 │
-                  │                 │
-                  │                 │
-                 ─┴─               ─┴─
-
+              server            client
+                 │                 │
+                 │     /home       │
+             ┌───┤◄────────────────┤
+        SSR  │   │                 │
+             │   │                 │
+             └──►├────────────────►│
+                 │                 ├───┐
+                 │    /bundle.js   │   │ Construct DOM
+                 │◄────────────────┤   │ Execute inline script
+                 │                 │◄──┘
+                 ├────────────────►│
+                 │                 ├───┐
+                 │                 │   │ Construct CSSOM
+                 │                 │   │
+                 │                 │◄──┘
+                 │                 │
+                 │                 ├─ ─ ─ render page with ─ ─
+                 │                 │         dark mode      │
+                 │                 ├───┐                    │
+                 │                 │   │ Execute JS         │
+                 │                 │   │ hydrate with   No Flash!!
+                 │                 │   │ dark mode          │
+                 │                 │   │ (no ERROR ✅)      │
+                 │                 │◄──┘                    │
+                 │                 │                        ▼
+                 │                 ├─ ─ ─ re-render with ─ ─ ─
+                 │                 │        dark mode
+                 │                 │
+                 │                 │
+                 │                 │
+                ─┴─               ─┴─
 ```
 
 ### Styled System with CSS custom properties
 
-To make the theme clean as before without being messed up due to the CSS custom properties. I made two helper functions.
+To make the theme clean and avoid being messed up by CSS custom properties, I created two helper functions: `flatWithPath` and `toCssCustomProperties`.
 
-- `flatWithPath` - to put styles into html using CSS custom properties
-- `toCssCustomProperties` - to use styled-system with CSS custom properties
-
-So I can still define my theme like this:
+With these helper functions, I can define the theme in the same way as before:
 
 ```ts
-import { flatWithPath, toCssCustomProperties } from "../theme"
-
 const primitives = {
   garden: {
     flower: "red",
@@ -351,7 +308,13 @@ const primitives = {
   bag: ["blue", "red", "yellow"],
   hair: "brown",
 }
+```
 
+The `flatWithPath` function is used to apply the styles to the HTML using CSS custom properties, while the `toCssCustomProperties` function enables the use of `styled-system` with CSS custom properties.
+
+Here's an example of how these functions can be used:
+
+```ts
 it("flats colors", () => {
   expect(flatWithPath(primitives, "--wtlin-ui-colors")).toStrictEqual({
     "--wtlin-ui-colors-garden-flower": "red",
@@ -396,6 +359,17 @@ it("maps colors to CSS custom properties", () => {
   })
 })
 ```
+
+With these functions, the theme is kept clean and separate from the use of CSS custom properties, making it easier to maintain and modify the theme as needed.
+
+## Reference
+
+- [Storybook Team - How we migrated 541 components from Styled Components to Emotion][storybook-styled-component]
+- [MUI Team - We strongly recommend using Emotion for SSR projects][mui-styled-component]
+- [Airbnb Team - Airbnb’s Trip to Linaria][airbnb-trip-to-linaria]
+- [MUI Team - The sx prop][mui-the-sx-prop]
+- [GitHub Team - The sx prop][github-the-sx-prop]
+- [Theme UI - The sx prop][theme-ui-the-sx-prop]
 
 <!-- prettier-ignore-start -->
 [emotion]: https://emotion.sh/docs/introduction
