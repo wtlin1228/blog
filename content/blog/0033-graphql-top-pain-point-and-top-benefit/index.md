@@ -21,9 +21,9 @@ These questions have been lingering in my mind since watching the talk, "Your Gr
 
 Despite using GraphQL since 2018, our team is still struggling with one of its top pain points, error handling. According to [the State of GraphQL 2022 report](https://2022.stateofgraphql.com/en-US/), this issue has consistently troubled GraphQL users. Although type checking is often cited as GraphQL's top benefit, our team has yet to fully realize its potential. In this post, I'll share our team's journey towards overcoming error handling and unlocking the benefits of type checking.
 
-![strong points](./images/strong-points.png)
-
 ![pain points](./images/pain-points.png)
+
+![strong points](./images/strong-points.png)
 
 ## Error Handling
 
